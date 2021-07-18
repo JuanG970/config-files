@@ -73,6 +73,12 @@
 (setq company-minimum-prefix-length 3
       company-idle-delay 0.800)
 
+;; Disable Projectile when working over tramp
+(add-hook 'find-file-hook
+          (lambda ()
+            (when (file-remote-p default-directory)
+              (setq-local projectile-mode-line "Projectile"))))
+
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
