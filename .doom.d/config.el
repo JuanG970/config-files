@@ -29,7 +29,7 @@
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "/Users/juangonzalez/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/")
+(setq org-directory "/~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/")
 (setq org-log-done 'time)
  (let* ((variable-tuple (cond ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
                                  ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
