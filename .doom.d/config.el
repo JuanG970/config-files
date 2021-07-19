@@ -16,7 +16,9 @@
 ;; + `doom-variable-pitch-font'
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
-;;
+(setq doom-font (font-spec :family "IBM Plex Mono" :size 14)
+      doom-variable-pitch-font (font-spec :famility "IBM Plex Sans" :size 14)
+      )
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
@@ -27,31 +29,20 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-nord-light)
 
+;; ORG Config
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (setq org-directory "/~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/")
 (setq org-log-done 'time)
- (let* ((variable-tuple (cond ((x-list-fonts "Source Sans Pro") '(:font "Source Sans Pro"))
-                                 ((x-list-fonts "Lucida Grande")   '(:font "Lucida Grande"))
-                                 ((x-list-fonts "Verdana")         '(:font "Verdana"))
-                                 ((x-family-fonts "Sans Serif")    '(:family "Sans Serif"))
-                                 (nil (warn "Cannot find a Sans Serif Font.  Install Source Sans Pro."))))
-           (base-font-color     (face-foreground 'default nil 'default))
-           (headline           `(:inherit default :weight bold :foreground ,base-font-color))
-           )
 
-      (custom-theme-set-faces 'user
-                              `(org-level-8 ((t (,@headline ,@variable-tuple))))
-                              `(org-level-7 ((t (,@headline ,@variable-tuple))))
-                              `(org-level-6 ((t (,@headline ,@variable-tuple))))
-                              `(org-level-5 ((t (,@headline ,@variable-tuple))))
-                              `(org-level-4 ((t (,@headline ,@variable-tuple :height 1.05))))
-                              `(org-level-3 ((t (,@headline ,@variable-tuple :height 1.10))))
-                              `(org-level-2 ((t (,@headline ,@variable-tuple :height 1.15))))
-                              `(org-level-1 ((t (,@headline ,@variable-tuple :height 1.25))))
-                              `(org-document-title ((t (,@headline ,@variable-tuple :height 1.5 :underline nil)))))
-      )
-
+(custom-theme-set-faces
+ 'user
+ `(org-level-4 ((t (:height 1.1))))
+ `(org-level-3 ((t (:height 1.25))))
+ `(org-level-2 ((t (:height 1.5))))
+ `(org-level-1 ((t (:height 1.75 :foreground '"#33A8FF"))))
+ `(org-document-title ((t (:foreground '"#33A8FF" :height 2.0))))
+ )
 ;; Mathematica config
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
