@@ -1,5 +1,6 @@
 # Ignore all the files
 *
+*/*
 # Except the dot files of interest
 !.doom.d/*
 !.bashrc

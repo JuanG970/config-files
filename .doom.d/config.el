@@ -32,18 +32,70 @@
 ;; ORG Config
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
-(setq org-directory "/~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/")
-(setq org-log-done 'time)
-
+(after! org
+  (setq org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/"
+        org-log-done 'time
+        )
+  (custom-theme-set-faces
+   'user
+   `(org-level-4 ((t (:inherit default :height 1.1))))
+   `(org-level-3 ((t (:inherit default :height 1.2))))
+   `(org-level-2 ((t (:inherit default :height 1.3 :foreground "#33A8FF"))))
+   `(org-level-1 ((t (:height 1.5 :foreground "#33A8FF"))))
+   `(org-document-title ((t (:foreground "#2874A6" :height 2.0))))
+   )
+  (defun my/org-mode/load-prettify-symbols () "Prettify org mode keywords"
+         (interactive)
+         (setq prettify-symbols-alist
+               (mapcan (lambda (x) (list x (cons (upcase (car x)) (cdr x))))
+                       '(("#+begin_src" . ?)
+                         ("#+end_src" . ?)
+                         ("#+begin_example" . ?)
+                         ("#+end_example" . ?)
+                         ("#+DATE:" . ?⏱)
+                         ("#+AUTHOR:" . ?✏)
+                         ("[ ]" .  ?☐)
+                         ("[X]" . ?☑ )
+                         ("[-]" . ?❍ )
+                         ("lambda" . ?λ)
+                         ("#+header:" . ?)
+                         ("#+name:" . ?﮸)
+                         ("#+results:" . ?)
+                         ("#+call:" . ?)
+                         (":properties:" . ?)
+                         (":logbook:" . ?))))
+         (prettify-symbols-mode 1)
+         )
+  ;; Load mathematica from contrib
+  (org-babel-do-load-languages 'org-babel-load-languages
+                               (append org-babel-load-languages
+                                       '((mathematica . t))
+                                       ))
+  (setq org-babel-mathematica-command "/usr/local/bin/wolframscript -script")
+  ;; Font-locking
+  (add-to-list 'org-src-lang-modes '("mathematica" . wolfram))
+)
 (custom-theme-set-faces
  'user
- `(org-level-4 ((t (:height 1.1))))
- `(org-level-3 ((t (:height 1.25))))
- `(org-level-2 ((t (:height 1.5))))
- `(org-level-1 ((t (:height 1.75 :foreground '"#33A8FF"))))
- `(org-document-title ((t (:foreground '"#33A8FF" :height 2.0))))
+ `(org-level-4 ((t (:inherit default :height 1.1))))
+ `(org-level-3 ((t (:inherit default :height 1.2))))
+ `(org-level-2 ((t (:inherit default :height 1.3 :foreground "#33A8FF"))))
+ `(org-level-1 ((t (:height 1.5 :foreground "#33A8FF"))))
+ `(org-document-title ((t (:foreground "#2874A6" :height 2.0))))
  )
-;; Mathematica config
+
+
+;; Mathematica config TODO
+(autoload 'wolfram-mode "wolfram-mode" nil t)
+(autoload 'run-wolfram "wolfram-mode" nil t)
+(after! wolfram-mode
+  (setq wolfram-program "/Applications/Mathematica.app/Contents/MacOS/WolframKernel -script")
+)
+(add-to-list 'auto-mode-alist '("\\.m$" . wolfram-mode))
+(setq wolfram-path "/~/Library/Mathematica") ;; e.g. on Linux ~/.Mathematica/Applications
+;; For wolfram-mode
+(setq mathematica-command-line "/Applications/Mathematica.app/Contents/MacOS/WolframKernel")
+
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
@@ -54,7 +106,7 @@
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
-;; PlantUML config (Test)
+;; PlantUML config TODO
 (setq org-plantuml-jar-path "Users/juangonzalez/plantuml.jar")
 (setq plantuml-jar-path (expand-file-name "/Users/juangonzalez/plantuml.jar"))
 

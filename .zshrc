@@ -100,4 +100,5 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
- export PATH=”$HOME/.emacs.d/bin:$PATH”
+export PATH=”$HOME/.emacs.d/bin:$PATH”
+alias MathematicaScript="/Applications/Mathematica.app/Contents/MacOS/WolframKernel"
