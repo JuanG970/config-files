@@ -48,10 +48,10 @@
       )
   (custom-theme-set-faces
    'user
-   `(org-level-4 ((t (:inherit default :height 1.1))))
-   `(org-level-3 ((t (:inherit default :height 1.2))))
-   `(org-level-2 ((t (:inherit default :height 1.3 :foreground "#33A8FF"))))
-   `(org-level-1 ((t (:height 1.5 :foreground "#33A8FF"))))
+   `(org-level-4 ((t (:inherit default))))
+   `(org-level-3 ((t (:inherit default))))
+   `(org-level-2 ((t (:inherit default :foreground "#33A8FF"))))
+   `(org-level-1 ((t (:foreground "#33A8FF"))))
    `(org-document-title ((t (:foreground "#2874A6" :height 2.0))))
    )
   (defun my/org-mode/load-prettify-symbols () "Prettify org mode keywords"
