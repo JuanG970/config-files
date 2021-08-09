@@ -102,3 +102,4 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=”$HOME/.emacs.d/bin:$PATH”
 alias MathematicaScript="/Applications/Mathematica.app/Contents/MacOS/WolframKernel"
+export PATH="/usr/local/sbin:$PATH"

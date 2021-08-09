@@ -22,7 +22,8 @@
        company           ; the ultimate code completion backend
        ;;helm              ; the *other* search engine for love and life
        ;;ido               ; the other *other* search engine...
-       ivy               ; a search engine for love and life
+       (ivy
+        +prescient)               ; a search engine for love and life
 
        :ui
        ;;deft              ; notational velocity for Emacs
@@ -37,7 +38,7 @@
        ;;minimap           ; show a map of the code on the side
        modeline          ; snazzy, Atom-inspired modeline, plus API
        nav-flash         ; blink cursor line after big motions
-       neotree           ; a project drawer, like NERDTree for vim
+       ;; neotree           ; a project drawer, like NERDTree for vim
        ophints           ; highlight the region an operation acts on
        (popup +defaults)   ; tame sudden yet inevitable temporary windows
        ;;tabs              ; a tab bar for Emacs
@@ -146,7 +147,14 @@
        ;;nim               ; python + lisp at the speed of c
        ;;nix               ; I hereby declare "nix geht mehr!"
        ;;ocaml             ; an objective camel
-       (org +pomodoro +present +pretty)       ; organize your plain life in plain text
+       (org
+        +pomodoro
+        +present
+        +dragndrop
+        +gnuplot
+        +pretty
+        +roam
+        );organize your plain life in plain text
        ;;php               ; perl's insecure younger brother
        plantuml          ; diagrams for confusing people more
        ;;purescript        ; javascript, but functional
@@ -175,12 +183,12 @@
        ;;(wanderlust +gmail)
 
        :app
-       ;;calendar
+       calendar
        ;;emms
        everywhere        ; *leave* Emacs!? You must be joking
        ;;irc               ; how neckbeards socialize
        ;;(rss +org)        ; emacs as an RSS reader
-       ;;twitter           ; twitter client https://twitter.com/vnought
+       twitter           ; twitter client https://twitter.com/vnought
 
        :config
        ;;literate

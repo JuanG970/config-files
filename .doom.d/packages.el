@@ -23,9 +23,8 @@
 ;  :recipe (:host github :repo "username/repo"
 ;           :files ("some-file.el" "src/lisp/*.el")))
 ;
-;; (package! ob-mathematica
-;;   :recipe (:host github :repo "stuartsierra/org-mode/"
-;;            :files ("ob-mathematica.el" "contrib/lisp/*.el")))
+(package! auto-dark-emacs
+  :recipe (:host github :repo "LionyxML/auto-dark-emacs"))
 
 ;; If you'd like to disable a package included with Doom, you can do so here
 ;; with the `:disable' property:

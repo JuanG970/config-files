@@ -17,7 +17,7 @@
 ;; + `doom-big-font' -- used for `doom-big-font-mode'; use this for
 ;;   presentations or streaming.
 (setq doom-font (font-spec :family "IBM Plex Mono" :size 14)
-      doom-variable-pitch-font (font-spec :famility "IBM Plex Sans" :size 14)
+      doom-variable-pitch-font (font-spec :family "Latin Modern Roman" :size 14)
       )
 ;; They all accept either a font-spec, font string ("Input Mono-12"), or xlfd
 ;; font string. You generally only need these two:
@@ -28,14 +28,24 @@
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-nord-light)
-
+(blink-cursor-mode 1)
 ;; ORG Config
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
 (after! org
   (setq org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/"
         org-log-done 'time
+        org-default-notes-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/notes.org"
+        org-fontify-done-headline t
+        org-hide-leading-stars t
+        org-pretty-entities t
+        org-ellipsis "⬐"
+        org-capture-templates
+      '(("t" "To-Do" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org" "Inbox")
+         "* TODO %?\n  %i\n  %a")
+        ("n" "Note" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/notes.org" "Inbox") "** %?\n %a")
         )
+      )
   (custom-theme-set-faces
    'user
    `(org-level-4 ((t (:inherit default :height 1.1))))
@@ -83,9 +93,14 @@
  `(org-level-1 ((t (:height 1.5 :foreground "#33A8FF"))))
  `(org-document-title ((t (:foreground "#2874A6" :height 2.0))))
  )
-
-
-;; Mathematica config TODO
+(use-package org-fancy-priorities
+  :ensure t
+  :hook
+  (org-mode . org-fancy-priorities-mode)
+  :config
+  (setq org-fancy-priorities-list '("!!!" "!!" "!" "o"))
+  )
+;; Mathematica config
 (autoload 'wolfram-mode "wolfram-mode" nil t)
 (autoload 'run-wolfram "wolfram-mode" nil t)
 (after! wolfram-mode
@@ -93,10 +108,19 @@
 )
 (add-to-list 'auto-mode-alist '("\\.m$" . wolfram-mode))
 (setq wolfram-path "/~/Library/Mathematica") ;; e.g. on Linux ~/.Mathematica/Applications
+
+(defun my-org-latex-yas ()
+  "Activate org and LaTeX yas expansion in org-mode buffers."
+  (yas-minor-mode)
+  (yas-activate-extra-mode 'latex-mode))
+
+(add-hook 'org-mode-hook #'my-org-latex-yas)
+
+
 ;; For wolfram-mode
 (setq mathematica-command-line "/Applications/Mathematica.app/Contents/MacOS/WolframKernel")
-
-
+;; Config org roam
+(setq org-roam-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/Second_Brain")
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type `relative)
@@ -107,20 +131,39 @@
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
 
 ;; PlantUML config TODO
-(setq org-plantuml-jar-path "Users/juangonzalez/plantuml.jar")
-(setq plantuml-jar-path (expand-file-name "/Users/juangonzalez/plantuml.jar"))
+(setq org-plantuml-jar-path "~/plantuml.jar")
+(setq plantuml-jar-path (expand-file-name "/~/plantuml.jar"))
 
 
-;;
 ;; Auto-complete settings
 (setq company-minimum-prefix-length 3
       company-idle-delay 0.800)
+(add-hook 'after-init-hook 'global-company-mode)
+
+(defun my/python-mode-hook ()
+(add-to-list 'company-backends 'company-jedi))
+
+(add-hook 'python-mode-hook 'my/python-mode-hook)
+(add-hook 'python-mode-hook 'run-python-internal)
 
 ;; Disable Projectile when working over tramp
 (add-hook 'find-file-hook
           (lambda ()
             (when (file-remote-p default-directory)
               (setq-local projectile-mode-line "Projectile"))))
+
+;; iSpell configuration
+(setq ispell-dictionary "es")
+
+(defun set-system-dark-mode ()
+(interactive)
+(if (string= (shell-command-to-string "printf %s \"$( osascript -e \'tell application \"System Events\" to tell appearance preferences to return dark mode\' )\"") "true")
+(setq doom-theme 'doom-nord)
+(setq doom-theme 'doom-nord-light)
+)
+)
+(set-system-dark-mode)
+
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
