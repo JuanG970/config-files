@@ -29,6 +29,7 @@
 ;; `load-theme' function. This is the default:
 (setq doom-theme 'doom-nord-light)
 (blink-cursor-mode 1)
+
 ;; ORG Config
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -53,6 +54,7 @@
    `(org-level-2 ((t (:inherit default :foreground "#33A8FF"))))
    `(org-level-1 ((t (:foreground "#33A8FF"))))
    `(org-document-title ((t (:foreground "#2874A6" :height 2.0))))
+   `(org-block ((t (:inherit default :background nil))))
    )
   (defun my/org-mode/load-prettify-symbols () "Prettify org mode keywords"
          (interactive)
