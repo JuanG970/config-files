@@ -31,12 +31,12 @@
 (blink-cursor-mode 1)
 
 ;; ORG Config
-;; If you use `org' and don't want your org files in the default location below,
-;; change `org-directory'. It must be set before org loads!
 (after! org
   (setq org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/"
         org-log-done 'time
-        org-default-notes-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/notes.org"
+        org-default-notes-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/Second_Brain/20210816201845-inbox_notes.org"
+        org-agenda-include-diary t
+        diary-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/diary.org"
         org-fontify-done-headline t
         org-hide-leading-stars t
         org-pretty-entities t
@@ -46,9 +46,44 @@
          "* TODO %?\n  %i\n  %a")
         ("n" "Note" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/notes.org" "Inbox") "** %?\n %a")
         )
+        org-pomodoro-play-sounds nil
+        org-taskjuggler-default-reports
+        '("textreport report \"Plan\" {
+        formats html
+        header '== %title =='
+        center -8<-
+        [#Plan Plan] | [#Resource_Allocation Resource Allocation]
+        ----
+        === Plan ===
+        <[report id=\"plan\"]>
+        ----
+        === Resource Allocation ===
+        <[report id=\"resourceGraph\"]>
+        ->8-
+        }
+        # A traditional Gantt chart with a project overview.
+        taskreport plan \"\" {
+        headline \"Project Plan\"
+        columns bsi, name, effort, start, end, complete, gauge, chart { width 5000 }
+        loadunit shortauto
+        hideresource 1
+        }
+        # A graph showing resource allocation. It identifies whether each
+        # resource is under- or over-allocated for.
+        resourcereport resourceGraph \"\" {
+        headline \"Resource Allocation Graph\"
+        columns no, name, effort, weekly { width 1000 }
+        loadunit shortauto
+        hidetask ~(isleaf() & isleaf_())
+        sorttasks plan.start.up
+        }")
+        org-latex-to-mathml-convert-command "java -jar %j -unicode -force -df %o %I"
+        org-latex-to-mathml-jar-file "~/mathtoweb.jar"
       )
   (custom-theme-set-faces
    'user
+   `(org-level-6 ((t (:inherit default))))
+   `(org-level-5 ((t (:inherit default))))
    `(org-level-4 ((t (:inherit default))))
    `(org-level-3 ((t (:inherit default))))
    `(org-level-2 ((t (:inherit default :foreground "#33A8FF"))))
@@ -127,6 +162,9 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type `relative)
 
+;; BiBTeX
+(setq bibtex-dialect 'biblatex)
+
 ;; Key bindings
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
@@ -134,8 +172,8 @@
 
 ;; PlantUML config TODO
 (setq org-plantuml-jar-path "~/plantuml.jar")
-(setq plantuml-jar-path (expand-file-name "/~/plantuml.jar"))
-
+(setq plantuml-jar-path (expand-file-name "~/plantuml.jar"))
+(setq plantuml-default-exec-mode 'jar)
 
 ;; Auto-complete settings
 (setq company-minimum-prefix-length 3
@@ -148,6 +186,11 @@
 (add-hook 'python-mode-hook 'my/python-mode-hook)
 (add-hook 'python-mode-hook 'run-python-internal)
 
+;; Projectile config
+(setq projectile-ignored-projects '("~/"
+                                    ))
+(setq projectile-enable-caching t)
+(setq projectile-indexing-method 'native)
 ;; Disable Projectile when working over tramp
 (add-hook 'find-file-hook
           (lambda ()
@@ -165,7 +208,6 @@
 )
 )
 (set-system-dark-mode)
-
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

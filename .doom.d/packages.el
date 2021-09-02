@@ -10,6 +10,7 @@
 ;(package! some-package)
 (package! wolfram-mode)
 (package! exec-path-from-shell)
+(package! org-ref)
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/raxod502/straight.el#the-recipe-format
@@ -25,6 +26,15 @@
 ;
 (package! auto-dark-emacs
   :recipe (:host github :repo "LionyxML/auto-dark-emacs"))
+
+(package! org-effectiveness
+  :recipe (:host nil :type git :repo "https://code.orgmode.org/bzg/org-mode.git"))
+
+;; Task juggler package install
+(package! ox-taskjuggler
+  :recipe (:host github :repo "Fuco1/org-mode"))
+(package! taskjuggler-mode
+  :recipe (:host github :repo "ska2342/taskjuggler-mode.el"))
 
 ;; If you'd like to disable a package included with Doom, you can do so here
 ;; with the `:disable' property:
