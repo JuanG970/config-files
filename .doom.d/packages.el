@@ -27,14 +27,23 @@
 (package! auto-dark-emacs
   :recipe (:host github :repo "LionyxML/auto-dark-emacs"))
 
+(package! ob-mathematica
+  :recipe (:host github :repo "stuartsierra/org-mode"))
+
 (package! org-effectiveness
-  :recipe (:host nil :type git :repo "https://code.orgmode.org/bzg/org-mode.git"))
+  :recipe (:host github :repo "stuartsierra/org-mode"))
+
+(package! ox-taskjuggler
+  :recipe (:host github :repo "stuartsierra/org-mode"))
+
+;; (package! org-effectiveness
+;; :recipe (:host nil :type git :repo "https://code.orgmode.org/bzg/org-mode.git"))
 
 ;; Task juggler package install
-(package! ox-taskjuggler
-  :recipe (:host github :repo "Fuco1/org-mode"))
-(package! taskjuggler-mode
-  :recipe (:host github :repo "ska2342/taskjuggler-mode.el"))
+;; (package! ox-taskjuggler
+;;   :recipe (:host github :repo "Fuco1/org-mode"))
+;; (package! taskjuggler-mode
+;;   :recipe (:host github :repo "ska2342/taskjuggler-mode.el"))
 
 ;; If you'd like to disable a package included with Doom, you can do so here
 ;; with the `:disable' property:

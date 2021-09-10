@@ -27,7 +27,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default:
-(setq doom-theme 'doom-nord-light)
+(setq doom-theme 'doom-one-light)
 (blink-cursor-mode 1)
 
 ;; ORG Config
@@ -113,14 +113,19 @@
                          (":logbook:" . ?))))
          (prettify-symbols-mode 1)
          )
-  ;; Load mathematica from contrib
+  (add-to-list 'org-src-lang-modes (cons "mma"  'wolfram)
+               (cons "mathematica"  'wolfram)
+               )
+
+  ;; Font-locking
+  (setq org-babel-mathematica-command "/usr/local/bin/wolframscript -script")
+  ;; Load languages
   (org-babel-do-load-languages 'org-babel-load-languages
                                (append org-babel-load-languages
                                        '((mathematica . t))
+                                       '((Shell . t))
+                                       '((python . t))
                                        ))
-  (setq org-babel-mathematica-command "/usr/local/bin/wolframscript -script")
-  ;; Font-locking
-  (add-to-list 'org-src-lang-modes '("mathematica" . wolfram))
 )
 (custom-theme-set-faces
  'user
@@ -138,14 +143,13 @@
   (setq org-fancy-priorities-list '("!!!" "!!" "!" "o"))
   )
 ;; Mathematica config
+(add-to-list 'auto-mode-alist '("\\.m$" . wolfram-mode))
 (autoload 'wolfram-mode "wolfram-mode" nil t)
 (autoload 'run-wolfram "wolfram-mode" nil t)
-(after! wolfram-mode
-  (setq wolfram-program "/Applications/Mathematica.app/Contents/MacOS/WolframKernel -script")
-)
-(add-to-list 'auto-mode-alist '("\\.m$" . wolfram-mode))
-(setq wolfram-path "/~/Library/Mathematica") ;; e.g. on Linux ~/.Mathematica/Applications
 
+(after! ob-mathematica
+  (add-to-list 'org-src-lang-modes (cons "mathematica"  'wolfram))
+  )
 (defun my-org-latex-yas ()
   "Activate org and LaTeX yas expansion in org-mode buffers."
   (yas-minor-mode)
@@ -153,11 +157,9 @@
 
 (add-hook 'org-mode-hook #'my-org-latex-yas)
 
-
-;; For wolfram-mode
-(setq mathematica-command-line "/Applications/Mathematica.app/Contents/MacOS/WolframKernel")
 ;; Config org roam
 (setq org-roam-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/Second_Brain")
+
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type `relative)
@@ -203,8 +205,8 @@
 (defun set-system-dark-mode ()
 (interactive)
 (if (string= (shell-command-to-string "printf %s \"$( osascript -e \'tell application \"System Events\" to tell appearance preferences to return dark mode\' )\"") "true")
-(setq doom-theme 'doom-nord)
-(setq doom-theme 'doom-nord-light)
+(setq doom-theme 'doom-one)
+(setq doom-theme 'doom-one-light)
 )
 )
 (set-system-dark-mode)
