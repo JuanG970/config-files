@@ -125,7 +125,10 @@
                                        '((mathematica . t))
                                        '((Shell . t))
                                        '((python . t))
+                                       '((latex . t))
                                        ))
+  (add-to-list 'org-latex-packages-alist '("" "listings"))
+  (setq org-latex-listings 'listings)
 )
 (custom-theme-set-faces
  'user
