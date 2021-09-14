@@ -36,6 +36,10 @@
 (package! ox-taskjuggler
   :recipe (:host github :repo "stuartsierra/org-mode"))
 
+(package! lilypond-mode
+  :recipe (:local-repo "lilypond"
+           ))
+(setq load-path (append (list (expand-file-name"/Applications/LilyPond.app/Contents/Resources/share/emacs/site-lisp")) load-path))
 ;; (package! org-effectiveness
 ;; :recipe (:host nil :type git :repo "https://code.orgmode.org/bzg/org-mode.git"))
 
