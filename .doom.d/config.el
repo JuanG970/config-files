@@ -79,6 +79,8 @@
         }")
         org-latex-to-mathml-convert-command "java -jar %j -unicode -force -df %o %I"
         org-latex-to-mathml-jar-file "~/mathtoweb.jar"
+        bibtex-dialect 'biblatex
+        org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")
       )
   (custom-theme-set-faces
    'user
@@ -126,6 +128,7 @@
                                        '((Shell . t))
                                        '((python . t))
                                        '((latex . t))
+                                       '((gnuplot . t))
                                        ))
    (add-to-list 'org-latex-packages-alist '("" "listings"))
    (setq org-latex-listings 'listings)
@@ -149,6 +152,9 @@
 (add-to-list 'auto-mode-alist '("\\.m$" . wolfram-mode))
 (autoload 'wolfram-mode "wolfram-mode" nil t)
 (autoload 'run-wolfram "wolfram-mode" nil t)
+(setq wolfram-program "/Applications/Mathematica.app/Contents/MacOS/MathKernel"
+      wolfram-path "direcotry-in-Mathematica-$Path"
+)
 
 (after! ob-mathematica
   (add-to-list 'org-src-lang-modes (cons "mathematica"  'wolfram))
@@ -168,7 +174,6 @@
 (setq display-line-numbers-type `relative)
 
 ;; BiBTeX
-(setq bibtex-dialect 'biblatex)
 
 ;; Key bindings
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
@@ -220,6 +225,15 @@
 (add-to-list 'auto-mode-alist '("\\.lytex$" . LilyPond-mode))
 (add-hook 'LilyPond-mode-hook (lambda () (turn-on-font-lock)))
 
+
+;; Modeline Config
+(after! doom-modeline
+  (remove-hook 'doom-modeline-mode-hook #'size-indication-mode) ; filesize in modeline
+  (remove-hook 'doom-modeline-mode-hook #'column-number-mode)   ; cursor column in modeline
+  (line-number-mode -1)
+  (setq doom-modeline-buffer-encoding nil))
+
+(require 'org-ref)
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one
