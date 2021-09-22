@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: org_eqn
+# key: oeqn
+# --
+#+name: eqn_$2
+#+begin_latex
+\begin{equation}
+$1
+\end{equation}
+#+end_latex

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: itesmhw
+# key: __t
+# --
+#+title: $1
+#+author: Juan Angel González Aguirre
+#+LANGUAGE:es
+#+LATEX_HEADER: \usepackage[AUTO]{babel}

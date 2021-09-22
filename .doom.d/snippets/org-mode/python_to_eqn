@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: python_to_eqn
+# key: py_eqn
+# --
+#+begin_src python :results output latex :post lbeqn(inputLatex=*this*)
+$1
+#+end_src

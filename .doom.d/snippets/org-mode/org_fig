@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: org_fig
+# key: ofig
+# --
+#+NAME:
+#+CAPTION: fig:$2
+[[$1]]

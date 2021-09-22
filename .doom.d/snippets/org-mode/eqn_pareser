@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: eqn_pareser
+# key: org_pyparser
+# --
+#+name: lbeqn
+#+begin_src python :var inputLatex="" :results output :exports none
+print("\\begin{equation}")
+print(inputLatex)
+print("\\end{equation}")
+#+end_src
