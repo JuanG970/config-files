@@ -30,23 +30,45 @@
 (setq doom-theme 'doom-one-light)
 (blink-cursor-mode 1)
 
+(auto-save-visited-mode t)
+(auto-revert-mode t)
+
 ;; ORG Config
 (after! org
   (setq org-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/"
         org-log-done 'time
-        org-default-notes-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/Second_Brain/20210816201845-inbox_notes.org"
         org-agenda-include-diary t
         diary-file "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/diary.org"
         org-fontify-done-headline t
         org-hide-leading-stars t
         org-pretty-entities t
+        org-clock-persist 'history
         org-ellipsis "⬐"
+        org-checkbox-hierarchical-statistics nil
         org-capture-templates
-      '(("t" "To-Do" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org" "Inbox")
-         "* TODO %?\n  %i\n  %a")
+      '(("t" "To-Do" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org" "Inbox") "** TODO %?\n %l")
         ("n" "Note" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/notes.org" "Inbox") "** %?\n %a")
         )
-        org-pomodoro-play-sounds nil
+        org-todo-keywords
+      '((sequence "TODO(t)" "NEXT(n)" "WIP(w)" "HOLD(h)" "|" "DONE(d)")
+        (sequence "QUICK(r)" "PROJ(p)" "DELEGATE(g)" "SOMEDAY(s)" "|" "DONE(d)")
+        (sequence "|" "CANCELED(c)"))
+      org-todo-keyword-faces
+      '(("QUICK" . "orange") ("DELEGATE" . "gold") ("HOLD" . "magenta") ("NEXT" . "purple") ("CANCELED" . "firebrick") ("PROJ" . "deep sky blue") ("SOMEDAY" . "plum") ("DONE" . "light gray") ("WIP" . "olive drab"))
+      org-agenda-custom-commands
+      '(("d" "GTD"
+         (
+          (agenda "" ((org-agenda-span 7)))
+          (todo "WIP") ; GTD next and quick
+          (todo "NEXT|QUICK") ; GTD next and quick
+          (todo "DELEGATE")
+          (stuck "") ; review stuck projects as designated by org-stuck-projects
+          )
+         ))
+      org-stuck-projects
+      '("TODO={.+}/-SOMEDAY" ("NEXT" "WIP" "DONE" "HOLD" "CANCELED") nil "SCHEDULED:\\|DEADLINE:"
+        )
+        ;;org-pomodoro-play-sounds nil
         org-taskjuggler-default-reports
         '("textreport report \"Plan\" {
         formats html
@@ -78,10 +100,11 @@
         sorttasks plan.start.up
         }")
         org-latex-to-mathml-convert-command "java -jar %j -unicode -force -df %o %I"
-        org-latex-to-mathml-jar-file "~/mathtoweb.jar"
+        org-latex-to-mathml-jar-file "~/JAR_Files/mathtoweb.jar"
         bibtex-dialect 'biblatex
         org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")
       )
+  (org-clock-persistence-insinuate)
   (custom-theme-set-faces
    'user
    `(org-level-6 ((t (:inherit default))))
@@ -91,7 +114,7 @@
    `(org-level-2 ((t (:inherit default :foreground "#33A8FF"))))
    `(org-level-1 ((t (:foreground "#33A8FF"))))
    `(org-document-title ((t (:foreground "#2874A6" :height 2.0))))
-   `(org-block ((t (:inherit default :background nil))))
+   `(org-block ((t (:inherit default))))
    )
   (defun my/org-mode/load-prettify-symbols () "Prettify org mode keywords"
          (interactive)
@@ -129,25 +152,31 @@
                                        '((python . t))
                                        '((latex . t))
                                        '((gnuplot . t))
+                                       '((dot . t))
                                        ))
    (add-to-list 'org-latex-packages-alist '("" "listings"))
    (setq org-latex-listings 'listings)
-)
-(custom-theme-set-faces
- 'user
- `(org-level-4 ((t (:inherit default :height 1.1))))
- `(org-level-3 ((t (:inherit default :height 1.2))))
- `(org-level-2 ((t (:inherit default :height 1.3 :foreground "#33A8FF"))))
- `(org-level-1 ((t (:height 1.5 :foreground "#33A8FF"))))
- `(org-document-title ((t (:foreground "#2874A6" :height 2.0))))
+   (custom-theme-set-faces
+    'user
+    `(org-level-4 ((t (:inherit default :height 1.1))))
+    `(org-level-3 ((t (:inherit default :height 1.2))))
+    `(org-level-2 ((t (:inherit default :height 1.3 :foreground "#33A8FF"))))
+    `(org-level-1 ((t (:height 1.5 :foreground "#33A8FF"))))
+    `(org-document-title ((t (:foreground "#2874A6" :height 2.0))))
  )
 (use-package org-fancy-priorities
-  :ensure t
+  :after org
   :hook
   (org-mode . org-fancy-priorities-mode)
   :config
   (setq org-fancy-priorities-list '("!!!" "!!" "!" "o"))
-  )
+)
+
+) ;;;;;;; AFTER ORG MODE FINISHES HERE
+(add-hook! org-mode :append
+           #'visual-line-mode
+;;           #'variable-pitch-mode)
+)
 ;; Mathematica config
 (add-to-list 'auto-mode-alist '("\\.m$" . wolfram-mode))
 (autoload 'wolfram-mode "wolfram-mode" nil t)
@@ -169,26 +198,27 @@
 ;; Config org roam
 (setq org-roam-directory "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/Second_Brain")
 
-;; This determines the style of line numbers in effect. If set to `nil', line
-;; numbers are disabled. For relative line numbers, set this to `relative'.
+;;;; This determines the style of line numbers in effect. If set to `nil', line
+;;;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type `relative)
-
-;; BiBTeX
-
-;; Key bindings
+;;
+;;;; BiBTeX
+;;
+;;;; Key bindings
 (define-key evil-normal-state-map (kbd "j") 'evil-next-visual-line)
 (define-key evil-normal-state-map (kbd "k") 'evil-previous-visual-line)
 (remove-hook 'doom-first-input-hook #'evil-snipe-mode)
-
-;; PlantUML config TODO
-(setq org-plantuml-jar-path "~/plantuml.jar")
+;;
+;;;; PlantUML config TODO
+(setq org-plantuml-jar-path "~/JAR_Files/plantuml.jar")
 (setq plantuml-jar-path (expand-file-name "~/plantuml.jar"))
 (setq plantuml-default-exec-mode 'jar)
 
 ;; Auto-complete settings
-(setq company-minimum-prefix-length 3
-      company-idle-delay 0.800)
+(setq company-minimum-prefix-length 5
+      company-idle-delay 1.100)
 (add-hook 'after-init-hook 'global-company-mode)
+(setq flycheck-check-syntax-automatically '(save mode-enable))
 
 (defun my/python-mode-hook ()
 (add-to-list 'company-backends 'company-jedi))
@@ -218,6 +248,7 @@
 )
 )
 (set-system-dark-mode)
+
 ;; LiLypond
 (autoload 'LilyPond-mode "lilypond-mode" "LilyPond Editing Mode" t)
 (add-to-list 'auto-mode-alist '("\\.ly$" . LilyPond-mode))
@@ -233,7 +264,7 @@
   (line-number-mode -1)
   (setq doom-modeline-buffer-encoding nil))
 
-(require 'org-ref)
+;;(require 'org-ref)
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
 ;; - `load!' for loading external *.el files relative to this one

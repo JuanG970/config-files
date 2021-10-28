@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("/Users/juangonzalez/Documents/ITESM/MSM/Tesis/PiBOT/MSM_Tesis/tesis/master.org" "/Users/juangonzalez/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/Agenda.org" "/Users/juangonzalez/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org"))
+   '("/Users/juangonzalez/Documents/ITESM/MSM/Tesis/PiBOT/MDPI Review/JAGA_part.org" "/Users/juangonzalez/Documents/ITESM/MSM/Tesis/PiBOT/MSM_Tesis/tesis/master.org" "/Users/juangonzalez/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/Agenda.org" "/Users/juangonzalez/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org"))
  '(package-selected-packages '(plantuml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -17,7 +17,7 @@
  '(org-level-2 ((t (:inherit default :height 1.3 :foreground "#33A8FF"))))
  '(org-level-3 ((t (:inherit default :height 1.2))))
  '(org-level-4 ((t (:inherit default :height 1.1))))
- '(org-level-5 ((t (:inherit default :weight bold :foreground "Black" :font "Lucida Grande"))))
- '(org-level-6 ((t (:inherit default :weight bold :foreground "Black" :font "Lucida Grande"))))
+ '(org-level-5 ((t (:inherit default))))
+ '(org-level-6 ((t (:inherit default))))
  '(org-level-7 ((t (:inherit default :weight bold :foreground "Black" :font "Lucida Grande"))))
  '(org-level-8 ((t (:inherit default :weight bold :foreground "Black" :font "Lucida Grande")))))

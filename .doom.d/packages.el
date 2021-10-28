@@ -9,9 +9,12 @@
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
 ;(package! some-package)
 (package! wolfram-mode)
-(package! exec-path-from-shell)
+;;(package! exec-path-from-shell)
 (package! org-ref)
 (package! gnuplot)
+(package! ob-mathematica)
+(package! ox-taskjuggler)
+(package! org-effectiveness)
 ;; To install a package directly from a remote git repo, you must specify a
 ;; `:recipe'. You'll find documentation on what `:recipe' accepts here:
 ;; https://github.com/raxod502/straight.el#the-recipe-format
@@ -23,19 +26,18 @@
 ;; `:files' in the `:recipe':
 ;(package! this-package
 ;  :recipe (:host github :repo "username/repo"
-;           :files ("some-file.el" "src/lisp/*.el")))
+;;           :files ("some-file.el" "src/lisp/*.el")))
 ;
 (package! auto-dark-emacs
   :recipe (:host github :repo "LionyxML/auto-dark-emacs"))
+;;
+;;  :recipe (:host github :repo "stuartsierra/org-mode"))
 
-(package! ob-mathematica
-  :recipe (:host github :repo "stuartsierra/org-mode"))
+;; (package! org-effectiveness
+;;   :recipe (:host github :repo "stuartsierra/org-mode"))
 
-(package! org-effectiveness
-  :recipe (:host github :repo "stuartsierra/org-mode"))
-
-(package! ox-taskjuggler
-  :recipe (:host github :repo "stuartsierra/org-mode"))
+;;(package! ox-taskjuggler)
+;;  :recipe (:host github :repo "stuartsierra/org-mode"))
 
 (package! lilypond-mode
   :recipe (:local-repo "lilypond"
@@ -43,12 +45,6 @@
 (setq load-path (append (list (expand-file-name"/Applications/LilyPond.app/Contents/Resources/share/emacs/site-lisp")) load-path))
 ;; (package! org-effectiveness
 ;; :recipe (:host nil :type git :repo "https://code.orgmode.org/bzg/org-mode.git"))
-
-;; Task juggler package install
-;; (package! ox-taskjuggler
-;;   :recipe (:host github :repo "Fuco1/org-mode"))
-;; (package! taskjuggler-mode
-;;   :recipe (:host github :repo "ska2342/taskjuggler-mode.el"))
 
 ;; If you'd like to disable a package included with Doom, you can do so here
 ;; with the `:disable' property:
