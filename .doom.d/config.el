@@ -56,7 +56,8 @@
       org-todo-keyword-faces
       '(("QUICK" . "orange") ("DELEGATE" . "gold") ("HOLD" . "magenta") ("NEXT" . "purple") ("CANCELED" . "firebrick") ("PROJ" . "deep sky blue") ("SOMEDAY" . "plum") ("DONE" . "light gray") ("WIP" . "olive drab"))
       org-agenda-custom-commands
-      '(("d" "GTD"
+      '(
+        ("d" "GTD"
          (
           (agenda "" ((org-agenda-span 7)))
           (todo "WIP") ; GTD next and quick
@@ -64,7 +65,16 @@
           (todo "DELEGATE")
           (stuck "") ; review stuck projects as designated by org-stuck-projects
           )
-         ))
+         )
+        ("W" "Weekly review"
+               agenda ""
+               ((org-agenda-span 'week)
+                (org-agenda-start-on-weekday 0)
+                (org-agenda-start-with-log-mode t)
+                (org-agenda-skip-function
+                 '(org-agenda-skip-entry-if 'nottodo 'done))
+                 ))
+        )
       org-stuck-projects
       '("TODO={.+}/-SOMEDAY" ("NEXT" "WIP" "DONE" "HOLD" "CANCELED") nil "SCHEDULED:\\|DEADLINE:"
         )
@@ -151,7 +161,6 @@
                                        '((Shell . t))
                                        '((python . t))
                                        '((latex . t))
-<<<<<<< HEAD
                                        '((gnuplot . t))
                                        '((dot . t))
                                        ))
@@ -164,19 +173,6 @@
     `(org-level-2 ((t (:inherit default :height 1.3 :foreground "#33A8FF"))))
     `(org-level-1 ((t (:height 1.5 :foreground "#33A8FF"))))
     `(org-document-title ((t (:foreground "#2874A6" :height 2.0))))
-=======
-                                       ))
-  (add-to-list 'org-latex-packages-alist '("" "listings"))
-  (setq org-latex-listings 'listings)
-)
-(custom-theme-set-faces
- 'user
- `(org-level-4 ((t (:inherit default :height 1.1))))
- `(org-level-3 ((t (:inherit default :height 1.2))))
- `(org-level-2 ((t (:inherit default :height 1.3 :foreground "#33A8FF"))))
- `(org-level-1 ((t (:height 1.5 :foreground "#33A8FF"))))
- `(org-document-title ((t (:foreground "#2874A6" :height 2.0))))
->>>>>>> master
  )
 (use-package org-fancy-priorities
   :after org
@@ -187,6 +183,7 @@
 )
 
 ) ;;;;;;; AFTER ORG MODE FINISHES HERE
+;; Other ORG Configs
 (add-hook! org-mode :append
            #'visual-line-mode
 ;;           #'variable-pitch-mode)

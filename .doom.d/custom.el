@@ -4,7 +4,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-agenda-files
-   '("/Users/juangonzalez/Documents/ITESM/MSM/Tesis/PiBOT/MDPI Review/JAGA_part.org" "/Users/juangonzalez/Documents/ITESM/MSM/Tesis/PiBOT/MSM_Tesis/tesis/master.org" "/Users/juangonzalez/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/Agenda.org" "/Users/juangonzalez/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org"))
+   '("~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/Agenda.org"))
  '(package-selected-packages '(plantuml-mode)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
