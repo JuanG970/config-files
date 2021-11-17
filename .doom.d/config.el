@@ -46,7 +46,7 @@
         org-ellipsis "⬐"
         org-checkbox-hierarchical-statistics nil
         org-capture-templates
-      '(("t" "To-Do" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org" "Inbox") "** TODO %?\n %l")
+      '(("t" "To-Do" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org" "Inbox") "** TODO %?\n %a")
         ("n" "Note" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/notes.org" "Inbox") "** %?\n %a")
         )
         org-todo-keywords
@@ -113,7 +113,7 @@
         org-latex-to-mathml-jar-file "~/JAR_Files/mathtoweb.jar"
         bibtex-dialect 'biblatex
         org-latex-pdf-process (list "latexmk -shell-escape -bibtex -f -pdf %f")
-      )
+      );; END setq org mode
   (org-clock-persistence-insinuate)
   (custom-theme-set-faces
    'user
@@ -222,7 +222,7 @@
 ;;
 ;;;; PlantUML config TODO
 (setq org-plantuml-jar-path "~/JAR_Files/plantuml.jar")
-(setq plantuml-jar-path (expand-file-name "~/plantuml.jar"))
+(setq plantuml-jar-path (expand-file-name "~/JAR_Files/plantuml.jar"))
 (setq plantuml-default-exec-mode 'jar)
 
 ;; Auto-complete settings

@@ -3,5 +3,6 @@
 # key: ofig
 # --
 #+NAME:
-#+CAPTION: fig:$2
+#+ATTR_LATEX: :width 0.50\textwidth
+#+CAPTION: $2
 [[$1]]
