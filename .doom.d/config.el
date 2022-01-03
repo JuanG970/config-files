@@ -46,7 +46,7 @@
         org-ellipsis "⬐"
         org-checkbox-hierarchical-statistics nil
         org-capture-templates
-      '(("t" "To-Do" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org" "Inbox") "** TODO %?\n %a")
+      '(("t" "To-Do" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/inbox.org" "Inbox") "** TODO %? \n %a")
         ("n" "Note" entry (file+headline "~/Library/Mobile Documents/iCloud~com~appsonthemove~beorg/Documents/org/notes.org" "Inbox") "** %?\n %a")
         )
         org-todo-keywords
@@ -275,6 +275,9 @@
   (line-number-mode -1)
   (setq doom-modeline-buffer-encoding nil))
 
+(add-to-list 'load-path "~/.emacs.d/elpa/minizin-mode-20180201.650")
+(require 'minizinc-mode)
+(autoload 'minizinc-mode "minizinc-mode" "Major mode for editing minizinc files")
 ;;(require 'org-ref)
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;

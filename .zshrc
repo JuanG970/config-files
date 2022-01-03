@@ -101,6 +101,12 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 export PATH=”$HOME/.emacs.d/bin:$PATH”
+export PATH=/Applications/MiniZincIDE.app/Contents/Resources:$PATH
 alias MathematicaScript="/Applications/Mathematica.app/Contents/MacOS/WolframKernel"
+alias mzn2fzn="minizinc"
 export PATH="/usr/local/sbin:$PATH"
 eval "$(starship init zsh)"
+
+compresspdf() {
+    gs -sDEVICE=pdfwrite -dNOPAUSE -dQUIET -dBATCH -dPDFSETTINGS=/${3:-"screen"} -dCompatibilityLevel=1.4 -sOutputFile="$2" "$1"
+}
