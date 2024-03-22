@@ -1,0 +1,34 @@
+{
+  "cc": {
+    "body": "(* $0 *)",
+    "prefix": "cc"
+  },
+  "echo": {
+    "body": "Echo[$1, $2];",
+    "prefix": "echo"
+  },
+  "here": {
+    "body": "Echo[\"Here\"];",
+    "prefix": "here"
+  },
+  "if": {
+    "body": [
+      "If [TrueQ[$1],",
+      "    $0",
+      "];"
+    ],
+    "prefix": "if"
+  },
+  "rif": {
+    "body": "ReturnIfFailure@",
+    "prefix": "rif"
+  },
+  "with": {
+    "body": [
+      "With[{$1},",
+      "    $0",
+      "];"
+    ],
+    "prefix": "with"
+  }
+}
